@@ -18,8 +18,6 @@ final class ViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         colorView.layer.cornerRadius = 20
@@ -27,44 +25,25 @@ final class ViewController: UIViewController {
         redSlider.tintColor = .red
         greenSlider.tintColor = .green
         blueSlider.tintColor = .blue
+    }
+    
+    @IBAction func SliderAction(_ sender: UISlider) {
+        switch sender {
+        case redSlider:
+            redNumberLabel.text = String(format: "%.2f", redSlider.value)
+        case greenSlider:
+            greenNumberLabel.text = String(format: "%.2f", greenSlider.value)
+        default:
+            blueNumberLabel.text = String(format: "%.2f", blueSlider.value)
+        }
+        setColor()
+    }
         
-        redSlider.value = 0
-        greenSlider.value = 0.5
-        blueSlider.value = 1
-    }
-   
-    @IBAction func redSliderAction() {
-        redNumberLabel.text = String(format: "%.2f", redSlider.value)
-        setColor()
-    }
-    
-    @IBAction func greenSliderAction() {
-        greenNumberLabel.text = String(format: "%.2f", greenSlider.value)
-        setColor()
-    }
-    
-    @IBAction func blueSliderAction() {
-        blueNumberLabel.text = String(format: "%.2f", blueSlider.value)
-        setColor()
-    }
-    
-    private func setColor() {
-        colorView.backgroundColor = UIColor(
-            red: CGFloat(redSlider.value),
-            green: CGFloat(greenSlider.value),
-            blue: CGFloat(blueSlider.value),
-            alpha: 1)
-    }
-
-    
-    
-    
-
-    
-    
-    
+        private func setColor() {
+            colorView.backgroundColor = UIColor(
+                red: CGFloat(redSlider.value),
+                green: CGFloat(greenSlider.value),
+                blue: CGFloat(blueSlider.value),
+                alpha: 1)
+        }
 }
-
-
-
-
