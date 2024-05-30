@@ -91,7 +91,18 @@ extension SetColorViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+
+    }
 }
+
+
+
+
+
 
 private extension SetColorViewController {
     func setGivenValuesForSliders(from color: UIColor) {
