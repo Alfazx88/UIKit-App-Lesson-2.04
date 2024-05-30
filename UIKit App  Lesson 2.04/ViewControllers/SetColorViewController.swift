@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol SetColorViewControllerDelegate {
-    func applyColor(with color: UIColor)
-}
-
-final class SetColorViewController: UIViewController, UITextFieldDelegate {
+final class SetColorViewController: UIViewController {
     
     var delegate: SetColorViewControllerDelegate?
     var currentViewColor: UIColor?
@@ -38,20 +34,26 @@ final class SetColorViewController: UIViewController, UITextFieldDelegate {
         greenSlider.tintColor = .green
         blueSlider.tintColor = .blue
         
-        acceptColorForSliders(from: currentViewColor ?? UIColor.white)
-        setColor()
+        setGivenValuesForSliders(from: currentViewColor ?? UIColor.white)
+        setGivenColorToView()
+        [redSlider, greenSlider, blueSlider].forEach { slider in
+            SliderAction(slider)
+        }
     }
     
     @IBAction func SliderAction(_ sender: UISlider) {
         switch sender {
         case redSlider:
             redNumberLabel.text = String(format: "%.2f", redSlider.value)
+            redColorTF.text = redNumberLabel.text
         case greenSlider:
             greenNumberLabel.text = String(format: "%.2f", greenSlider.value)
+            greenColorTF.text = greenNumberLabel.text
         default:
             blueNumberLabel.text = String(format: "%.2f", blueSlider.value)
+            blueColorTF.text = blueNumberLabel.text
         }
-        setColor()
+        setGivenColorToView()
     }
     
     @IBAction func doneButton() {
@@ -60,7 +62,7 @@ final class SetColorViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true)
     }
     
-    private func setColor() {
+    private func setGivenColorToView() {
         colorView.backgroundColor = UIColor(
             red: redSlider.value.cgFloat(),
             green: greenSlider.value.cgFloat(),
@@ -71,8 +73,28 @@ final class SetColorViewController: UIViewController, UITextFieldDelegate {
 }
 
 // MARK: - Private Methods
+extension SetColorViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case redColorTF:
+            redSlider.value = Float(textField.text ?? "") ?? 0.0
+            SliderAction(redSlider)
+        case greenColorTF:
+            greenSlider.value = Float(textField.text ?? "") ?? 0.0
+            SliderAction(greenSlider)
+        default:
+            blueSlider.value = Float(textField.text ?? "") ?? 0.0
+            SliderAction(blueSlider)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+}
+
 private extension SetColorViewController {
-    func acceptColorForSliders(from color: UIColor) {
+    func setGivenValuesForSliders(from color: UIColor) {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
@@ -90,6 +112,3 @@ private extension Float {
         CGFloat(self)
     }
 }
-
-
-

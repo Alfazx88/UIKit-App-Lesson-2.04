@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class WelcomeViewController: UIViewController, SetColorViewControllerDelegate {
-    
-    // private var currentViewColor: UIColor?
+protocol SetColorViewControllerDelegate: AnyObject {
+    func applyColor(with color: UIColor)
+}
 
+final class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // currentViewColor = view.backgroundColor
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -21,9 +21,10 @@ final class WelcomeViewController: UIViewController, SetColorViewControllerDeleg
         setColorVC.currentViewColor = view.backgroundColor
         setColorVC.delegate = self
     }
-    
-    func applyColor(with chosenColor: UIColor) {
-        view.backgroundColor = chosenColor
+}
+
+extension WelcomeViewController: SetColorViewControllerDelegate {
+    func applyColor(with color: UIColor) {
+        view.backgroundColor = color
     }
-    
 }
