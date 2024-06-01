@@ -75,6 +75,14 @@ final class SetColorViewController: UIViewController {
 // MARK: - Private Methods
 extension SetColorViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
+        guard Float(textField.text!) ?? -1 <= 1.0,
+              Float(textField.text!) ?? -1 >= 0.0 else {
+            showAlert(
+                title: "Invalid input",
+                message: "Enter value from 0.0 to 1.0",
+                textField: textField)
+            return
+        }
         switch textField {
         case redColorTF:
             redSlider.value = Float(textField.text ?? "") ?? 0.0
@@ -88,21 +96,15 @@ extension SetColorViewController: UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
-
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
-
-
-
-
-
 
 private extension SetColorViewController {
     func setGivenValuesForSliders(from color: UIColor) {
@@ -115,6 +117,15 @@ private extension SetColorViewController {
         redSlider.value = Float(red)
         greenSlider.value = Float(green)
         blueSlider.value = Float(blue)
+    }
+    
+    func showAlert(title: String, message: String, textField: UITextField) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) {_ in 
+            textField.text = ""
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
 
