@@ -8,8 +8,6 @@
 import UIKit
 
 final class SetColorViewController: UIViewController {
-    
-
     //MARK: IB Outlets
     @IBOutlet var colorView: UIView!
     
@@ -66,7 +64,6 @@ final class SetColorViewController: UIViewController {
         delegate?.applyColor(with: chosenColor)
         dismiss(animated: true)
     }
-    
 }
 
 // MARK: - Private Methods
