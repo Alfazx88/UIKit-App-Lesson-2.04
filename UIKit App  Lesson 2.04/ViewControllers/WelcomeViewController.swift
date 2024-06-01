@@ -23,6 +23,7 @@ final class WelcomeViewController: UIViewController {
     }
 }
 
+// MARK: - SetColorViewControllerDelegate
 extension WelcomeViewController: SetColorViewControllerDelegate {
     func applyColor(with color: UIColor) {
         view.backgroundColor = color

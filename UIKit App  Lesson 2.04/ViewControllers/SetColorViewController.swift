@@ -9,9 +9,8 @@ import UIKit
 
 final class SetColorViewController: UIViewController {
     
-    var delegate: SetColorViewControllerDelegate?
-    var currentViewColor: UIColor?
-    
+
+    //MARK: IB Outlets
     @IBOutlet var colorView: UIView!
     
     @IBOutlet var redNumberLabel: UILabel!
@@ -26,6 +25,11 @@ final class SetColorViewController: UIViewController {
     @IBOutlet var greenColorTF: UITextField!
     @IBOutlet var blueColorTF: UITextField!
     
+    //MARK: Public Properties
+    var delegate: SetColorViewControllerDelegate?
+    var currentViewColor: UIColor?
+    
+    //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         colorView.layer.cornerRadius = 10
@@ -41,6 +45,7 @@ final class SetColorViewController: UIViewController {
         }
     }
     
+    //MARK: IB Actions
     @IBAction func SliderAction(_ sender: UISlider) {
         switch sender {
         case redSlider:
@@ -62,14 +67,6 @@ final class SetColorViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    private func setGivenColorToView() {
-        colorView.backgroundColor = UIColor(
-            red: redSlider.value.cgFloat(),
-            green: greenSlider.value.cgFloat(),
-            blue: blueSlider.value.cgFloat(),
-            alpha: 1
-        )
-    }
 }
 
 // MARK: - Private Methods
@@ -107,6 +104,15 @@ extension SetColorViewController: UITextFieldDelegate {
 }
 
 private extension SetColorViewController {
+    func setGivenColorToView() {
+        colorView.backgroundColor = UIColor(
+            red: redSlider.value.cgFloat(),
+            green: greenSlider.value.cgFloat(),
+            blue: blueSlider.value.cgFloat(),
+            alpha: 1
+        )
+    }
+    
     func setGivenValuesForSliders(from color: UIColor) {
         var red: CGFloat = 0
         var green: CGFloat = 0

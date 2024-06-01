@@ -42,9 +42,10 @@
 		950444492C047954003DCE41 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				95F4FF812BCB208C00DBDB72 /* Info.plist */,
 				95F4FF752BCB208A00DBDB72 /* SceneDelegate.swift */,
 				95F4FF732BCB208A00DBDB72 /* AppDelegate.swift */,
+				95F4FF812BCB208C00DBDB72 /* Info.plist */,
+				95F4FF7C2BCB208C00DBDB72 /* Assets.xcassets */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -89,7 +90,6 @@
 				950444492C047954003DCE41 /* App */,
 				9504444C2C0479B6003DCE41 /* ViewControllers */,
 				9504444A2C047976003DCE41 /* Storyboards */,
-				95F4FF7C2BCB208C00DBDB72 /* Assets.xcassets */,
 			);
 			path = "UIKit App  Lesson 2.04";
 			sourceTree = "<group>";
